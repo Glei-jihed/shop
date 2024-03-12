@@ -4,6 +4,7 @@ package education.shop.services;
 import education.shop.controllers.AuthenticationRequest;
 import education.shop.controllers.AuthenticationResponse;
 import education.shop.controllers.RegisterRequest;
+import education.shop.entities.Cart;
 import education.shop.entities.Role;
 import education.shop.entities.User;
 import education.shop.repositories.UserRepository;
@@ -36,6 +37,31 @@ public class AuthenticationService {
                 .postalCode(request.getPostalCode())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_USER)
+                .cart(new Cart())
+                .build();
+
+        repository.save(user);
+        var jwtToken = jwtService.generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+
+    public AuthenticationResponse adminRegister(RegisterRequest request){
+        var user = User.builder()
+                .id(request.getId())
+                .age(request.getAge())
+                .phone(request.getPhone())
+                .profilePicture(request.getProfilePicture())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .city(request.getCity())
+                .postalCode(request.getPostalCode())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.ROLE_ADMIN)
                 .build();
 
         repository.save(user);

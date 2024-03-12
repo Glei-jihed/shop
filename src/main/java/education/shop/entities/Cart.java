@@ -17,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Cart implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

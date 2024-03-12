@@ -1,10 +1,8 @@
 package education.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -21,7 +19,7 @@ public class Product implements Serializable {
 
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String reference;
 
 
@@ -33,15 +31,31 @@ public class Product implements Serializable {
     private String description;
 
 
-    @Column()
+    @Column(nullable = false)
     private Integer numberInStock;
 
-    @Column
+    @Column(nullable = false)
     private boolean inStock;
+
+    @Column(nullable = false)
+    private double price;
+
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Set<ProductImage> images;
 
     @ManyToMany(mappedBy = "products")
     @JsonBackReference
     private Set<Cart> carts;
+
+    //=========================================== Pre persist ==========================================================
+
+
+    @PrePersist
+    @PreUpdate
+    public void prePersist(){
+        this.inStock = this.numberInStock != 0;
+    }
 
 
 

@@ -14,7 +14,6 @@ import java.util.List;
 
 
 @Entity
-@Data
 @Getter
 @Setter
 @Builder
@@ -48,10 +47,10 @@ public class User implements UserDetails {
     @Column(unique = true, name = "email", nullable = false)
     private String email;
 
-
+    @Column(nullable = false)
     private String password;
 
-
+    @Column(nullable = false)
     private boolean connected;
 
     @Column(nullable = false)
@@ -79,7 +78,12 @@ public class User implements UserDetails {
     private Cart cart;
 
 
+    //================================================ Pre persist =====================================================
 
+    @PrePersist
+    public void prePersist(){
+        this.inscriptionDate= new Date();
+    }
 
 
 

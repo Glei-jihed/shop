@@ -1,15 +1,12 @@
 package education.shop.services;
 
 
-
 import education.shop.entities.User;
 import education.shop.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,18 +14,20 @@ import java.util.Optional;
 public class UserServiceImplementation implements UserService{
 
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    public UserServiceImplementation(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
 
     @Override
     public ResponseEntity<List<User>> findAll() {
         List<User> users = userRepository.findAll();
         if (users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<User>>(users,HttpStatus.OK);
+        return new ResponseEntity<>(users,HttpStatus.OK);
 
     }
 
@@ -44,8 +43,7 @@ public class UserServiceImplementation implements UserService{
     @Override
     public Optional<User> findById(String id) {
 
-        Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser;
+        return Optional.of(userRepository.findById(id)).orElse(null);
 
     }
 
@@ -64,8 +62,6 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public User logoutUser(User user) {
-
-
         Optional<User> user2 = findById(user.getId());
         if (user2.isEmpty()){
             return  null;
@@ -80,21 +76,18 @@ public class UserServiceImplementation implements UserService{
         if(userOptional.isEmpty())
         {
             return null;
-
         } else {
             return userRepository.save(user);
         }
     }
 
 
-    //=============== Filtres Admin ====================================================================================
+    //=====================================  Admin filters =============================================================
 
 
     @Override
     public List<User> findByConnected(boolean connected) {
-
         return userRepository.findByConnected(connected);
-
     }
 
     @Override
@@ -111,9 +104,6 @@ public class UserServiceImplementation implements UserService{
     public List<User> findByFirstNameAndLastName(String firstName, String lastName) {
         return userRepository.findByFirstNameAndLastName(firstName,lastName);
     }
-
-
-
 
     @Override
     public List<User> findByAgeBefore(int age) {

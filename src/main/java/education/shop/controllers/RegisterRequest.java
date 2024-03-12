@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class RegisterRequest {
     private String email;
     private String password;
     private int postalCode;
+    private Date inscriptionDate;
     private String city;
     private boolean connected;
     private int age;
