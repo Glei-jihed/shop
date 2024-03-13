@@ -36,18 +36,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.userRegister(request));
     }
 
-    /**
-     * @author: Glei Jihed
-     * @param request this request contain the admin information
-     * @return Response
-     */
-    @PostMapping(path = "/admins/register")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<AuthenticationResponse> adminRegister(
-            @RequestBody RegisterRequest request
-    ){
-        return ResponseEntity.ok(authenticationService.adminRegister(request));
-    }
+
 
 
     /**

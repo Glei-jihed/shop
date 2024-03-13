@@ -5,22 +5,44 @@ import education.shop.entities.Dto.ProductAdminRespDto;
 import education.shop.entities.Dto.ProductDto;
 import education.shop.entities.Dto.UserRespForAdmin;
 import education.shop.entities.User;
+import education.shop.requests.AuthenticationResponse;
+import education.shop.requests.RegisterRequest;
 import education.shop.services.AdminService;
+import education.shop.services.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/admins/operations")
 public class AdminController {
    private final AdminService adminService;
+   private final AuthenticationService authenticationService;
 
 
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, AuthenticationService authenticationService) {
         this.adminService = adminService;
+        this.authenticationService = authenticationService;
     }
+
+     /**
+      * @author: Glei Jihed
+      * @param request this request contain the admin information
+      * @return Response
+      */
+     @PostMapping(path = "/admins/register")
+     @ResponseStatus(HttpStatus.ACCEPTED)
+     public ResponseEntity<AuthenticationResponse> adminRegister(
+             @RequestBody RegisterRequest request
+     ){
+      return ResponseEntity.ok(authenticationService.adminRegister(request));
+     }
 
     @PostMapping(path="/products/build")
     @ResponseStatus(HttpStatus.CREATED)
