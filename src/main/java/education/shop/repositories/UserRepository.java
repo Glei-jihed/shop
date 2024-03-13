@@ -32,6 +32,7 @@ public interface UserRepository extends JpaRepository<User,String> {
 
     List<User> findByAgeAfter(int age);
 
+    List<User> findUserByCity(String city);
     List<User> findByAgeBetween(int min, int max);
 
     @Query("SELECT u FROM User u WHERE u.firstName LIKE %:keyword% OR u.lastName LIKE %:keyword%")

@@ -3,14 +3,15 @@ package education.shop.services;
 
 import education.shop.entities.Dto.ProductAdminRespDto;
 import education.shop.entities.Dto.ProductDto;
+import education.shop.entities.Dto.UserRespForAdmin;
 import education.shop.entities.Product;
+import education.shop.entities.User;
 import education.shop.mappers.CartMapper;
 import education.shop.mappers.ProductMapper;
 import education.shop.mappers.UserMapper;
 import education.shop.repositories.CartRepository;
 import education.shop.repositories.ProductRepository;
 import education.shop.repositories.UserRepository;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -121,7 +122,45 @@ public class AdminService {
     //============================================== User Ops ==========================================================
 
 
+    public void deleteUser(String id){
+        userRepository.deleteById(id);
+    }
 
+    public List<UserRespForAdmin> findAll(){
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toUserRespForAdmin)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<UserRespForAdmin> findUserByID(String id){
+        Optional<User> user = userRepository.findById(id);
+        return Optional.ofNullable(userMapper.toUserRespForAdmin(user.get()));
+    }
+
+    public UserRespForAdmin updateUser(User user){
+        User user1 = userRepository.save(user);
+        return userMapper.toUserRespForAdmin(user1);
+    }
+
+    public List<UserRespForAdmin> findUserByFirstNameOrLastName(String word){
+        return userRepository.findByFirstNameOrLastNameLike(word)
+                .stream()
+                .map(userMapper::toUserRespForAdmin)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<UserRespForAdmin> findUserByEmail(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        return Optional.ofNullable(Optional.ofNullable(userMapper.toUserRespForAdmin(user.get())).orElse(null));
+    }
+
+    public List<UserRespForAdmin> findUserByCity(String city){
+        return userRepository.findUserByCity(city)
+                .stream()
+                .map(userMapper::toUserRespForAdmin)
+                .collect(Collectors.toList());
+    }
 
 
 
