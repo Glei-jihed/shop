@@ -83,9 +83,8 @@ public class User implements UserDetails {
     @PrePersist
     public void prePersist(){
         this.inscriptionDate= new Date();
+        this.cart=new Cart();
     }
-
-
 
     //================================================= User details ===================================================
 

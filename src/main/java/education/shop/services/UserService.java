@@ -124,6 +124,13 @@ public class  UserService {
         return cartMapper.toCartDto(cart.get());
     }
 
+    public UserRespDto logout(String id){
+        Optional<User> user = userRepository.findById(id);
+        user.get().setConnected(false);
+        user.get().setCart(new Cart());
+        return userMapper.toUserRespDto(user.get());
+    }
+
 
 
 

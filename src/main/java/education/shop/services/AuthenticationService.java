@@ -37,7 +37,6 @@ public class AuthenticationService {
                 .postalCode(request.getPostalCode())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_USER)
-                .cart(new Cart())
                 .build();
 
         repository.save(user);
@@ -63,10 +62,8 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_ADMIN)
                 .build();
-
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
