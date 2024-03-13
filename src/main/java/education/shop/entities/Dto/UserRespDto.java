@@ -5,7 +5,7 @@ import java.util.Date;
 public record UserRespDto(
         String firstName,
         String lastName,
-        String age,
+        int age,
         String city,
         Integer postalCode,
         Date inscriptionDate,

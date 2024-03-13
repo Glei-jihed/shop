@@ -7,13 +7,12 @@ public record UserRespForAdmin(
         String id,
         String firstName,
         String lastName,
-        String age,
+        int age,
         String city,
         Integer postalCode,
         Date inscriptionDate,
         String email,
-        String password,
-        byte[] profilePicture,
+
         String phone
 ) {
 }

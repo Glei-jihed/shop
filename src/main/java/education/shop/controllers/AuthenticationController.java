@@ -3,8 +3,13 @@ package education.shop.controllers;
 
 import education.shop.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,6 +26,7 @@ public class AuthenticationController {
      * @return AuthenticationResponse
      */
     @PostMapping(path = "/user/register")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<AuthenticationResponse> userRegister(
             @RequestBody RegisterRequest request
     ){
@@ -35,9 +41,25 @@ public class AuthenticationController {
      * @return token
      */
     @PostMapping(path = "/authenticate")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
     ){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+
+    //===================================== Exception Handling =========================================================
+    @ExceptionHandler
+    public ResponseEntity<?> handleMethodArgumentNotFoundException(MethodArgumentNotValidException exp){
+        var errors = new HashMap<String,String>();
+        exp.getBindingResult().getAllErrors()
+                .forEach(error->{
+                    var fieldName = ((FieldError) error).getField();
+                    var errorMessage = error.getDefaultMessage();
+                    errors.put(fieldName,errorMessage);
+
+                });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
 }

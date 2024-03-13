@@ -4,18 +4,13 @@ import education.shop.entities.ProductImage;
 
 import java.util.Set;
 
-public record ProductDtoRespForAdmin(
+public record ProductAdminRespDto(
         String reference,
         String productName,
-
         String description,
-
         boolean inStock,
-
-        Integer numberInStock,
-
         double price,
-
-        Set<ProductImage> images
+        Set<ProductImage> images,
+        Integer numberInStock
 ) {
 }
