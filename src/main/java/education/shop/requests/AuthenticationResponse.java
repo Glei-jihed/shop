@@ -1,4 +1,4 @@
-package education.shop.controllers;
+package education.shop.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

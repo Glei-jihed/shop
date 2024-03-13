@@ -26,6 +26,7 @@ public class ProductMapper {
                 product.getProductName(),
                 product.getDescription(),
                 product.getNumberInStock(),
+                product.getCategory(),
                 product.getPrice(),
                 product.getImages()
         );
@@ -38,17 +39,19 @@ public class ProductMapper {
                 product.getDescription(),
                 product.isInStock(),
                 product.getPrice(),
+                product.getCategory(),
                 product.getImages()
         );
     }
 
-    public ProductAdminRespDto productAdminRespDto(Product product){
+    public ProductAdminRespDto toProductAdminRespDto(Product product){
         return new ProductAdminRespDto(
                 product.getReference(),
                 product.getProductName(),
                 product.getDescription(),
                 product.isInStock(),
                 product.getPrice(),
+                product.getCategory(),
                 product.getImages(),
                 product.getNumberInStock()
         );

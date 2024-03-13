@@ -1,9 +1,9 @@
 package education.shop.services;
 
 
-import education.shop.controllers.AuthenticationRequest;
-import education.shop.controllers.AuthenticationResponse;
-import education.shop.controllers.RegisterRequest;
+import education.shop.requests.AuthenticationRequest;
+import education.shop.requests.AuthenticationResponse;
+import education.shop.requests.RegisterRequest;
 import education.shop.entities.Cart;
 import education.shop.entities.Role;
 import education.shop.entities.User;

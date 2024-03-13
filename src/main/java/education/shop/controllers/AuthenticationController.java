@@ -1,6 +1,9 @@
 package education.shop.controllers;
 
 
+import education.shop.requests.AuthenticationRequest;
+import education.shop.requests.AuthenticationResponse;
+import education.shop.requests.RegisterRequest;
 import education.shop.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +28,25 @@ public class AuthenticationController {
      * @param request this request contain the user details
      * @return AuthenticationResponse
      */
-    @PostMapping(path = "/user/register")
+    @PostMapping(path = "/users/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<AuthenticationResponse> userRegister(
             @RequestBody RegisterRequest request
     ){
         return ResponseEntity.ok(authenticationService.userRegister(request));
+    }
+
+    /**
+     * @author: Glei Jihed
+     * @param request this request contain the admin information
+     * @return Response
+     */
+    @PostMapping(path = "/admins/register")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<AuthenticationResponse> adminRegister(
+            @RequestBody RegisterRequest request
+    ){
+        return ResponseEntity.ok(authenticationService.adminRegister(request));
     }
 
 

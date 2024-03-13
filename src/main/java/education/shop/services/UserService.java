@@ -1,54 +1,33 @@
 package education.shop.services;
 
 
-
 import education.shop.entities.User;
+import education.shop.mappers.ProductMapper;
+import education.shop.mappers.UserMapper;
+import education.shop.repositories.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+@Service
+public class  UserService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    private final ProductMapper productMapper;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper, ProductMapper productMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.productMapper = productMapper;
+    }
 
 
 
-    ResponseEntity<List<User>> findAll();
-
-    List<User> userDelete(User user);
-
-    Optional<User> findById(String id);
-
-    User updateUser(User user);
-
-    User logoutUser(User user);
-
-    User createGame(User user);
-
-
-
-
-    //===================================== Filtres admin ==============================================================
-
-    List<User> findByConnected(boolean connected);
-
-    List<User> findByLastName(String lastName);
-
-    List<User> findByFirstName(String firstName);
-
-    List<User> findByFirstNameAndLastName(String firstName, String lastName);
-
-
-
-
-
-    List<User> findByAgeBefore(int age);
-
-    List<User> findByAgeAfter(int age);
-
-    List<User> findByAgeBetween(int min, int max);
-
-    List<User> findByFirstNameOrLastNameLike(String keyword);
 
 
 

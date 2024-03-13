@@ -10,6 +10,7 @@ public record ProductAdminRespDto(
         String description,
         boolean inStock,
         double price,
+        String category,
         Set<ProductImage> images,
         Integer numberInStock
 ) {

@@ -1,4 +1,4 @@
-package education.shop.controllers;
+package education.shop.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

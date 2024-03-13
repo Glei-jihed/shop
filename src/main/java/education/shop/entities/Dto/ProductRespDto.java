@@ -14,6 +14,8 @@ public record ProductRespDto(
 
         double price,
 
+        String category,
+
         Set<ProductImage> images
 ) {
 }

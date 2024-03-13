@@ -19,6 +19,9 @@ public record ProductDto(
         @PositiveOrZero
         Integer numberInStock,
 
+        @NotEmpty(message = "The product should have a category !")
+        String category,
+
         @Positive
         double price,
 
