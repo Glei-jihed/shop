@@ -3,6 +3,8 @@ package education.shop.controllers;
 
 import education.shop.entities.Dto.ProductAdminRespDto;
 import education.shop.entities.Dto.ProductDto;
+import education.shop.entities.Dto.UserRespForAdmin;
+import education.shop.entities.User;
 import education.shop.services.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +82,6 @@ public class AdminController {
         return adminService.findProductByPriceBetween(min, max);
     }
 
-
     @GetMapping(path = "/product/{word}")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductAdminRespDto> findByNameLike(@PathVariable String word)
@@ -88,11 +89,55 @@ public class AdminController {
         return adminService.findByName(word);
     }
 
+    @DeleteMapping(path = "/users/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteUser(@PathVariable String id)
+    {
+        adminService.deleteUser(id);
+    }
+
+    @GetMapping(path = "/users")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserRespForAdmin> findAll(){
+        return adminService.findAll();
+    }
+
+    @GetMapping(path = "/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<UserRespForAdmin> findUserById(@PathVariable String id)
+    {
+        return adminService.findUserByID(id);
+    }
 
 
+    @PatchMapping(path = "/users/update")
+    @ResponseStatus(HttpStatus.OK)
+    public UserRespForAdmin updateUser(@RequestBody User user)
+    {
+        return adminService.updateUser(user);
+    }
 
 
+    @GetMapping(path = "/users/{word}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserRespForAdmin> findByFirstNameOrLastName(@PathVariable String word)
+    {
+        return adminService.findUserByFirstNameOrLastName(word);
+    }
 
+
+    @GetMapping(path = "/users/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<UserRespForAdmin> findByEmail(@PathVariable String email)
+    {
+        return adminService.findUserByEmail(email);
+    }
+
+    @GetMapping(path = "users/{city}")
+    public List<UserRespForAdmin> findByCity(@PathVariable String city)
+    {
+        return adminService.findUserByCity(city);
+    }
 
 
 
