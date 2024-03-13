@@ -1,13 +1,14 @@
 package education.shop.services;
 
 
-import education.shop.entities.Dto.ProductAdminRespDto;
-import education.shop.entities.Dto.ProductRespDto;
-import education.shop.entities.Dto.UserRespDto;
-import education.shop.entities.Dto.UserRespForAdmin;
+import education.shop.entities.Cart;
+import education.shop.entities.Dto.*;
+import education.shop.entities.Product;
 import education.shop.entities.User;
+import education.shop.mappers.CartMapper;
 import education.shop.mappers.ProductMapper;
 import education.shop.mappers.UserMapper;
+import education.shop.repositories.CartRepository;
 import education.shop.repositories.ProductRepository;
 import education.shop.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,12 +26,18 @@ public class  UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    private final CartMapper cartMapper;
+
+    private final CartRepository cartRepository;
+
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, ProductRepository productRepository, ProductMapper productMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, CartMapper cartMapper, CartRepository cartRepository, ProductRepository productRepository, ProductMapper productMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.cartMapper = cartMapper;
+        this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.productMapper = productMapper;
     }
@@ -42,11 +50,14 @@ public class  UserService {
         return Optional.ofNullable(userMapper.toUserRespDto(user.get()));
     }
 
-    public Optional<UserRespDto> setNewPassword(String id, String password){
+    public ResponseEntity<Optional<UserRespDto>> setNewPassword(String id, String password){
         Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         user.get().setPassword(password);
         User savedUser = userRepository.save(user.get());
-        return Optional.ofNullable(userMapper.toUserRespDto(savedUser));
+        return new ResponseEntity<>(Optional.ofNullable(userMapper.toUserRespDto(savedUser)),HttpStatus.OK);
     }
 
     public List<ProductRespDto> findProductByPriceBetween(double min, double max){
@@ -97,6 +108,20 @@ public class  UserService {
 
             }
             return new ResponseEntity<>(products,HttpStatus.OK);
+    }
+
+    public CartDto addProductToCart(String reference,String id){
+        Optional<Product> product = productRepository.findById(reference);
+        Optional<User> user = userRepository.findById(id);
+        Optional<Cart> cart = cartRepository.findCartByUserId(id);
+        cart.get().getProducts().add(product.get());
+        product.get().setNumberInStock(product.get().getNumberInStock()-1);
+        return cartMapper.toCartDto(cart.get());
+    }
+
+    public CartDto findUserCart(String id){
+        Optional<Cart> cart = cartRepository.findCartByUserId(id);
+        return cartMapper.toCartDto(cart.get());
     }
 
 
