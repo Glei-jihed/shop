@@ -1,5 +1,6 @@
 package education.shop.entities.Dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import education.shop.entities.ProductImage;
 
 import java.util.Set;

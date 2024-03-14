@@ -23,7 +23,6 @@ public class ProductImage implements Serializable {
 
     @ManyToOne()
     @JoinColumn(name = "product_reference", nullable = false)
-    @JsonBackReference
     private Product product;
 
 }

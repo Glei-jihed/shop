@@ -44,11 +44,9 @@ public class Product implements Serializable {
     private double price;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonManagedReference
     private Set<ProductImage> images;
 
     @ManyToMany(mappedBy = "products")
-    @JsonBackReference
     private Set<Cart> carts;
 
     //=========================================== Pre persist ==========================================================
@@ -57,7 +55,7 @@ public class Product implements Serializable {
     @PrePersist
     @PreUpdate
     public void prePersist(){
-        this.inStock = this.numberInStock != 0;
+        this.inStock = this.numberInStock > 0;
     }
 
 

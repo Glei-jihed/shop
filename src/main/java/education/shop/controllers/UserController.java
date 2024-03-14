@@ -43,7 +43,7 @@ public class UserController {
 
     @PatchMapping(path = "/users/{id}/{password}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<Optional<UserRespDto>> newPassword(String id, String password){
+    public ResponseEntity<Optional<UserRespDto>> newPassword(@PathVariable String id, @PathVariable String password){
         return userService.setNewPassword(id,password);
     }
 

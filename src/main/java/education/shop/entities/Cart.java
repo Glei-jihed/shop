@@ -23,7 +23,6 @@ public class Cart implements Serializable {
 
 
     @OneToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
-    @JsonBackReference
     private User user;
 
 
@@ -33,7 +32,6 @@ public class Cart implements Serializable {
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_reference")
     )
-    @JsonManagedReference
     private Set<Product> products;
 
 
