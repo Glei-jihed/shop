@@ -1,4 +1,4 @@
-# Projet E-Commerce
+# Projet E-Commerce ( master branch )
 # Getting Started with Docker
 
 Ce projet est une application e-commerce développée avec Spring Boot, MySQL et PHPMyAdmin. L'application comprend des fonctionnalités de connexion pour les utilisateurs et les administrateurs.
