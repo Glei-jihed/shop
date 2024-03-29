@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -76,6 +75,9 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user")
     @JoinColumn(name = "user_id", nullable = false)
     private Cart cart;
+
+    public User(String number, String jihed, String glei, int i, String paris, int i1, String mail, String s, String number1, boolean b) {
+    }
 
 
     //================================================ Pre persist =====================================================

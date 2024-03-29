@@ -23,7 +23,7 @@ public record ProductDto(
         @NotEmpty(message = "The product should have a category !")
         String category,
 
-        @Positive
+        @PositiveOrZero
         double price,
 
         @NotEmpty(message = "you must set some pictures link !")

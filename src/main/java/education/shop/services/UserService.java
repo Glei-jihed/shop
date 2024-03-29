@@ -25,11 +25,8 @@ public class  UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
     private final CartMapper cartMapper;
-
     private final CartRepository cartRepository;
-
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
