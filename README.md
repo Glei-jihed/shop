@@ -30,7 +30,13 @@ Pour utiliser ce projet, suivez les étapes suivantes :
 
    
 5. Lancez le projet en exécutant la commande suivante :
-   ### `docker-compose up --build` 
+   ### `docker-compose up --build`
+
+👋 Bonjour ! Je suis GLEI Jihed, le développeur de ce projet. 
+Passionné par la création d'applications innovantes, je suis disponible pour répondre à vos questions et discuter de toute suggestion d'amélioration.
+Vous pouvez me contacter par e-mail à jihed.glei@yahoo.com ou par téléphone au 0753129330.
+N'hésitez pas à me joindre, je serais ravi d'échanger avec vous !
+
 
 
 
