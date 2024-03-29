@@ -2,6 +2,17 @@
 # Getting Started with Docker
 
 Ce projet est une application e-commerce développée avec Spring Boot, MySQL et PHPMyAdmin. L'application comprend des fonctionnalités de connexion pour les utilisateurs et les administrateurs.
+Ce projet présente les concepts suivants :
+- 🚀 Inscription et connexion sécurisées avec JWT (JSON Web Tokens)
+- 🏢 Utilisation des entités pour modéliser les données
+- ✅ Validation des données entrantes avec des annotations de validation
+- 📦 Utilisation de DTO (Data Transfer Objects) pour transférer les données entre les couches de l'application
+- 🛠️ Services pour la logique métier
+- 💾 Repositories pour l'interaction avec la base de données
+- 🖥️ Controllers pour gérer les requêtes HTTP
+- ✅ Tests unitaires pour assurer la qualité du code
+
+
 
 ## Comment utiliser ce projet ?
 
